@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
+import Resources.ResourceAPI;
 import Resources.TestDataBuild;
 import Resources.Utils;
 import io.cucumber.java.en.Given;
@@ -24,15 +25,22 @@ public class stepDefinition extends Utils {
 	TestDataBuild data = new TestDataBuild();
 
 	@Given("Add place payload")
-	public void add_place_payload() throws IOException {
+	@Given("Add place payload with {string} {string} {string}")
+	public void add_place_payload_with(String name, String language, String address) throws IOException {
 
 		// Set header
-		res = given().spec(requestSpecification()).body(data.AppPlacePayload());
+		res = given().spec(requestSpecification()).body(data.AppPlacePayload(name, language, address));
 	}
 
-	@When("user calls {string} with Post http request")
-	public void user_calls_with_post_http_request(String string) {
-		response = res.when().post("/maps/api/place/add/json").then().spec(reponseSpecBuilder()).extract().response();
+	@When("user calls {string} with {string} http request")
+	public void user_calls_with_http_request(String resource, String method) {
+		
+		ResourceAPI resAPI = ResourceAPI.valueOf(resource);
+		
+		if(method.equalsIgnoreCase("POST"))
+		response = res.when().post(resAPI.getResource()).then().spec(reponseSpecBuilder()).extract().response();
+		else if(method.equalsIgnoreCase("GET"))
+			response = res.when().get(resAPI.getResource()).then().spec(reponseSpecBuilder()).extract().response();	
 
 	}
 

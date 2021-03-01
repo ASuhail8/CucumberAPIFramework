@@ -8,14 +8,14 @@ import pojo.Location;
 
 public class TestDataBuild {
 	
-	public GoogleAddAPI AppPlacePayload() {
+	public GoogleAddAPI AppPlacePayload(String name, String language, String address) {
 		GoogleAddAPI p = new GoogleAddAPI();
 		p.setAccuracy(50);
-		p.setName("Frontline house");
+		p.setName(name);
 		p.setPhone_number("(+91) 983 893 3937");
-		p.setAddress("29, side layout, cohen 09");
+		p.setAddress(address);
 		p.setWebsite("http://google.com");
-		p.setLanguage("French-IN");
+		p.setLanguage(language);
 
 		List<String> list = new ArrayList<String>();
 		list.add("shoe park");
