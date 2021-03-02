@@ -11,12 +11,14 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
 public class Utils {
 
-	public static RequestSpecification reqSpec; 
+	public static RequestSpecification reqSpec;
 	ResponseSpecification resSpec;
 
 	public RequestSpecification requestSpecification() throws IOException {
@@ -42,6 +44,13 @@ public class Utils {
 				"D:\\Abdulla Suhail\\work\\SuhailWorkSpace\\src\\CucumberAPIFramework\\src\\test\\java\\Resources\\global.properties");
 		prop.load(fis);
 		return prop.getProperty(key);
+
+	}
+
+	public String getJsonPath(Response response, String key) {
+		String resp = response.asString();
+		JsonPath js = new JsonPath(resp);
+		return js.get(key).toString();
 
 	}
 
