@@ -36,7 +36,7 @@ public class stepDefinition extends Utils {
 	public void user_calls_with_http_request(String resource, String method) {
 
 		ResourceAPI resAPI = ResourceAPI.valueOf(resource);
-
+		System.out.println(resAPI.getResource());
 		if (method.equalsIgnoreCase("POST"))
 			response = res.when().post(resAPI.getResource()).then().spec(reponseSpecBuilder()).extract().response();
 		else if (method.equalsIgnoreCase("GET"))
